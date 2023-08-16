@@ -1,0 +1,35 @@
+h2 {
+  color: #4f4f4f;
+  font-size: 1.125rem;
+  letter-spacing: -0.63px;
+}
+
+p {
+  color: #828282;
+  font-size: 0.625rem;
+  letter-spacing: -0.35px;
+
+  margin-top: 1rem;
+}
+
+.drop-area {
+  background-color: #f6f8fb;
+  border-radius: 0.75rem;
+  border: 1px dashed #97bef4;
+
+  margin-top: 2rem;
+  padding: 2.5rem 5rem;
+}
+
+.drop-area > p {
+  color: #bdbdbd;
+  font-size: 0.75rem;
+  letter-spacing: -0.42px;
+
+  margin-top: 2rem;
+}
+
+#second {
+  font-size: 0.75rem;
+  margin-top: 1.125rem;
+}

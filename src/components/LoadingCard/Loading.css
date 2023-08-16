@@ -1,0 +1,33 @@
+.loading-bar {
+  width: 22.25rem;
+  height: 0.25rem;
+  border-radius: 0.5rem;
+  background: #f2f2f2;
+
+  margin-top: 2rem;
+}
+
+.inner-bar {
+  width: 6.25rem;
+  height: 0.25rem;
+
+  border-radius: 0.5rem;
+  background: #2f80ed;
+
+  position: relative;
+
+  animation: loadingAnimation 3s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes loadingAnimation {
+  0% {
+    left: 0rem;
+  }
+
+  100% {
+    left: 16rem;
+  }
+}

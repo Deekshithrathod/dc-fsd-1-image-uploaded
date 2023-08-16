@@ -1,0 +1,22 @@
+main {
+  background-color: #fafafb;
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn {
+  color: #fff;
+  background-color: #2f80ed;
+  font-family: "Noto Sans";
+  font-size: 0.75rem;
+  letter-spacing: -0.42px;
+  border: none;
+  border-radius: 0.5rem;
+
+  padding: 0.5rem 1rem;
+  margin-top: 1.25rem;
+}
