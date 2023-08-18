@@ -2,6 +2,12 @@ import Card from "../Card/Card";
 import "./DropCard.css";
 
 const DropCard = () => {
+  // const fileInputRef = useRef(null);
+  // const [];
+  const handleClick = () => {
+    document.getElementById("fileInput")?.click();
+  };
+
   const handleDrop = (ev: React.DragEvent<HTMLDivElement>) => {
     ev.preventDefault();
     console.log(`reached handleDrop`);
@@ -37,7 +43,16 @@ const DropCard = () => {
         <p>Drag & Drop your Image here</p>
       </div>
       <p id="second">Or</p>
-      <button className="btn">Choose a file</button>
+
+      <input
+        id="fileInput"
+        type="file"
+        style={{ display: `none` }}
+        accept="image/*"
+      />
+      <button className="btn" onClick={handleClick}>
+        Choose a file
+      </button>
     </Card>
   );
 };

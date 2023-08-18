@@ -2,11 +2,11 @@ import { useRef, useState } from "react";
 import Card from "../Card/Card";
 import "./SuccessCard.css";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import { Slide, Zoom } from "@mui/material";
+import { Zoom } from "@mui/material";
 
 const SuccessCard = () => {
   const [showCopied, setShowCopied] = useState(false);
-  const [url, setURL] = useState(
+  const [url, _setURL] = useState(
     `https://exampleURL.com/your/upload/idyour/upload/idyour/upload/idyour/upload/id`
   );
   const containerRef = useRef(null);
@@ -36,12 +36,12 @@ const SuccessCard = () => {
               Copy Link
             </button>
           </div>
-          <Zoom in={showCopied}>
-            <div className="copied">
-              Copied{" "}
-              <CheckCircleIcon sx={{ fontSize: ".75rem", color: "green" }} />
-            </div>
-          </Zoom>
+          {/* <Zoom in={showCopied}> */}
+          <div className="copied">
+            Copied{" "}
+            <CheckCircleIcon sx={{ fontSize: ".75rem", color: "green" }} />
+          </div>
+          {/* </Zoom> */}
         </div>
       </Card>
     </>
