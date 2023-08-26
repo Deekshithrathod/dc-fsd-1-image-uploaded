@@ -1,3 +1,18 @@
+.title {
+  padding: 0;
+  margin: 0;
+}
+
+.sub-title {
+  text-align: right;
+
+  position: relative;
+  bottom: 0.75rem;
+
+  margin-top: 0;
+  padding-right: 2rem;
+}
+
 h2 {
   color: #4f4f4f;
   font-size: 1.125rem;
@@ -32,4 +47,12 @@ p {
 #second {
   font-size: 0.75rem;
   margin-top: 1.125rem;
+}
+
+.file-btn:hover {
+  background-color: #3084f2;
+}
+
+.file-btn:active {
+  background-color: #1d4d8c;
 }

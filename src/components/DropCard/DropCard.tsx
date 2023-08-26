@@ -1,28 +1,45 @@
-import Card from "../Card/Card";
+import axios from "axios";
 import "./DropCard.css";
+import { useSetRecoilState } from "recoil";
+import { statusState } from "../../atoms/status";
+import { imageURL } from "../../atoms/imageURL";
+import { useRef } from "react";
 
 const DropCard = () => {
-  // const fileInputRef = useRef(null);
-  // const [];
-  const handleClick = () => {
-    document.getElementById("fileInput")?.click();
+  const setStatus = useSetRecoilState(statusState);
+  const setImageUrl = useSetRecoilState(imageURL);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleFile = async (file: File) => {
+    if (!file) {
+      return;
+    }
+
+    setStatus("UPLOADING");
+
+    const formData = new FormData();
+    formData.append("fileUpload", file);
+
+    try {
+      const response = await axios.post("/photos", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+
+      // TODO: check status code etc.
+      setStatus("DONE");
+      console.log(response.data.url);
+
+      setImageUrl(response.data.url);
+    } catch (error) {
+      console.error("Error uploading image:", error);
+    }
   };
 
-  const handleDrop = (ev: React.DragEvent<HTMLDivElement>) => {
+  const handleDrop = async (ev: React.DragEvent<HTMLDivElement>) => {
     ev.preventDefault();
-    console.log(`reached handleDrop`);
-    if (ev.dataTransfer.items) {
-      [...ev.dataTransfer.items].forEach((item, i) => {
-        if (item.kind === "file") {
-          const file = item.getAsFile() as File;
-          console.log(`… file[${i}].name = ${file.name}`);
-          console.log(file.type);
-        }
-      });
-    } else {
-      [...ev.dataTransfer.files].forEach((file, i) => {
-        console.log(`… file[${i}].name = ${file.name}`);
-      });
+    if (ev.dataTransfer.files) {
+      const file = ev.dataTransfer.files[0];
+      handleFile(file);
     }
   };
 
@@ -30,30 +47,43 @@ const DropCard = () => {
     e.preventDefault();
   };
 
+  const handleClick = () => {
+    if (fileInputRef.current && fileInputRef.current.files) {
+      handleFile(fileInputRef.current.files[0]);
+    }
+  };
+
   return (
-    <Card>
-      <h1>Uploadinator</h1>
+    <>
+      <header>
+        <h1 className="title">
+          PhotoPub
+          {/* <br /> */}
+        </h1>
+        <p className="sub-title">... share with 🌍</p>
+      </header>
       <h2>Upload your image</h2>
       <p>File should be jpeg, png ....</p>
       <div
         className="drop-area"
-        onDrop={handleDrop}
-        onDragOver={handleDragOver}>
+        onDrop={(e) => handleDrop(e)}
+        onDragOver={(e) => handleDragOver(e)}>
         <img src="image.svg" alt="" />
         <p>Drag & Drop your Image here</p>
       </div>
       <p id="second">Or</p>
 
-      <input
-        id="fileInput"
-        type="file"
-        style={{ display: `none` }}
-        accept="image/*"
-      />
-      <button className="btn" onClick={handleClick}>
-        Choose a file
+      <button className="btn file-btn" onClick={() => handleClick()}>
+        <label htmlFor="imageUpload">Choose a file</label>
+        <input
+          type="file"
+          ref={fileInputRef}
+          id="imageUpload"
+          style={{ display: `none` }}
+          onChange={() => handleClick()}
+        />
       </button>
-    </Card>
+    </>
   );
 };
 
