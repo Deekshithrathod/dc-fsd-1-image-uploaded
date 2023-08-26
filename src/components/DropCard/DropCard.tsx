@@ -6,6 +6,11 @@ import { imageURL } from "../../atoms/imageURL";
 import { useRef } from "react";
 
 const DropCard = () => {
+  const BACKEND_URL =
+    import.meta.env.MODE === "dev"
+      ? "http://localhost:3000"
+      : `${import.meta.env.VITE_BACKEND_URL}`;
+
   const setStatus = useSetRecoilState(statusState);
   const setImageUrl = useSetRecoilState(imageURL);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -21,7 +26,7 @@ const DropCard = () => {
     formData.append("fileUpload", file);
 
     try {
-      const response = await axios.post("/photos", formData, {
+      const response = await axios.post(`${BACKEND_URL}/photos`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
@@ -56,10 +61,7 @@ const DropCard = () => {
   return (
     <>
       <header>
-        <h1 className="title">
-          PhotoPub
-          {/* <br /> */}
-        </h1>
+        <h1 className="title">PhotoPub</h1>
         <p className="sub-title">... share with 🌍</p>
       </header>
       <h2>Upload your image</h2>
